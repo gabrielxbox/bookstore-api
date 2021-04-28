@@ -1,17 +1,28 @@
 package com.gabriel.bookstore.domaim;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+
+@Entity
+@Table(name = "Livro")
 public class Livro {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "titulo")
     private String titulo;
 
+    @Column(name = "nome_autor")
     private String nome_autor;
 
+    @Column(name = "texto")
     private String texto;
 
+    @OneToMany(mappedBy = "categoria")
     private Categoria categoria;
 
     public Livro() {

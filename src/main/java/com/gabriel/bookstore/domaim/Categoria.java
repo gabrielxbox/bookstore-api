@@ -1,15 +1,27 @@
 package com.gabriel.bookstore.domaim;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Categoria {
-
+@Entity
+@Table(name = "Categoria")
+public class Categoria implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
+
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "descricao")
     private String descricao;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
     private List<Livro> listaLivros = new ArrayList<Livro>();
 
     public Categoria() {
