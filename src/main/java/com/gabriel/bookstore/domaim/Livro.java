@@ -1,11 +1,13 @@
 package com.gabriel.bookstore.domaim;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 
 @Entity
-@Table(name = "Livro")
+@Table(name = "livro")
 public class Livro {
 
     @Id
@@ -22,7 +24,9 @@ public class Livro {
     @Column(name = "texto")
     private String texto;
 
-    @OneToMany(mappedBy = "categoria")
+    @JsonIgnore // inginora a serialização 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
     public Livro() {

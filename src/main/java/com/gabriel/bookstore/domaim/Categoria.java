@@ -1,5 +1,8 @@
 package com.gabriel.bookstore.domaim;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Categoria")
+@Table(name = "categoria")
 public class Categoria implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +23,9 @@ public class Categoria implements Serializable {
     @Column(name = "descricao")
     private String descricao;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_id")
+   // @OneToMany(fetch = FetchType.EAGER)
+   // @Fetch(FetchMode.SUBSELECT)
+   @OneToMany(mappedBy = "categoria")
     private List<Livro> listaLivros = new ArrayList<Livro>();
 
     public Categoria() {
