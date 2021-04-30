@@ -1,6 +1,7 @@
 package com.gabriel.bookstore.services;
 
 import com.gabriel.bookstore.domaim.Categoria;
+import com.gabriel.bookstore.exception.ObjectNotFoundException;
 import com.gabriel.bookstore.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,10 @@ public class CategoriaService {
     public Categoria findByid(Integer id) {
         // caso ele nao enconte ele vai retorna um Optional
         Optional<Categoria> obj = this.categoriaRepository.findById(id);
-        return obj.orElse(null);
+        // criando uma new function e passando o parametro ObjectNotFoundException para manda uma mensagem
+        return obj.orElseThrow(() ->
+                new ObjectNotFoundException("Objeto não encontrado! id: " + id + ", Tipo: "
+                        + Categoria.class.getName()));
 
     }
 }

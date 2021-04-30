@@ -24,7 +24,7 @@ public class Livro {
     @Column(name = "texto")
     private String texto;
 
-    @JsonIgnore // inginora a serialização 
+    @JsonIgnore // inginora a serialização
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
