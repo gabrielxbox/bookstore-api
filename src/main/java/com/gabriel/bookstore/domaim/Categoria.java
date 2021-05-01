@@ -23,9 +23,9 @@ public class Categoria implements Serializable {
     @Column(name = "descricao")
     private String descricao;
 
-   // @OneToMany(fetch = FetchType.EAGER)
+   // @OneToMany(fetch = FetchType.EAGER
    // @Fetch(FetchMode.SUBSELECT)
-   @OneToMany(mappedBy = "categoria")
+   @OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER)
     private List<Livro> listaLivros = new ArrayList<Livro>();
 
     public Categoria() {
