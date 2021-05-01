@@ -42,4 +42,9 @@ public class CategoriaService {
         obj.setDescricao(objDto.getDescricao());
         return this.categoriaRepository.save(obj);
     }
+
+    public void delite(Integer id) {
+        this.findByid(id);
+        this.categoriaRepository.deleteById(id);
+    }
 }
