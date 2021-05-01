@@ -58,4 +58,10 @@ public class LivroResouce {
                 .toUri();
         return  ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> delite (@PathVariable Integer id) {
+        this.livroService.delite(id);
+        return  ResponseEntity.noContent().build();
+    }
 }
