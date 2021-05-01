@@ -34,4 +34,16 @@ public class LivroService  {
         this.categoriaService.findByid(id_categoria);
         return this.livroRepository.findAllByCategoria(id_categoria);
     }
+
+    public Livro update(Integer id, Livro obj) {
+        Livro newObj = this.findById(id);
+        this.updateData(newObj, obj);
+        return this.livroRepository.save(newObj);
+    }
+
+    private void updateData(Livro newObj, Livro obj) {
+        newObj.setTitulo(obj.getTitulo());
+        newObj.setNome_autor(obj.getTexto());
+        newObj.setTexto(obj.getTexto());
+    }
 }

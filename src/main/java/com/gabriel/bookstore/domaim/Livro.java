@@ -25,7 +25,7 @@ public class Livro {
     private String texto;
 
     @JsonIgnore // inginora a serialização
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
