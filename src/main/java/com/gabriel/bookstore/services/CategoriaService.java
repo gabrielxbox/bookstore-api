@@ -2,9 +2,11 @@ package com.gabriel.bookstore.services;
 
 import com.gabriel.bookstore.domaim.Categoria;
 import com.gabriel.bookstore.dtos.CategoriaDTO;
+import com.gabriel.bookstore.exception.DataIntergrityViolationException;
 import com.gabriel.bookstore.exception.ObjectNotFoundException;
 import com.gabriel.bookstore.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,6 +47,11 @@ public class CategoriaService {
 
     public void delite(Integer id) {
         this.findByid(id);
+        try {
         this.categoriaRepository.deleteById(id);
+        // to pacote do spring
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntergrityViolationException("Categoria não pode ser deletado! possui Livros associado");
+        }
     }
 }

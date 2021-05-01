@@ -17,7 +17,7 @@ public class DevConfig {
     @Value("${spring.jpa.hibernate.ddl-auto}") // pega o caminho para ver o valor
     private String strategy;
 
-    @Bean // para iniciar assim que a cllas for chamada
+    @Bean // para iniciar assim que a class  for chamada
     public  boolean instanciaBaseDeDados() {
         if(this.strategy.equals("create")){
             this.dbsarvice.instanciaBaseDeDados();
