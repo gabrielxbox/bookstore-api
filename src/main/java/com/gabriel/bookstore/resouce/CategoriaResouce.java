@@ -24,7 +24,9 @@ public class CategoriaResouce {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Categoria> findById(@PathVariable Integer id){
             Categoria  obj = this.categoriaService.findByid(id);
-            return ResponseEntity.ok().body(obj);
+            return ResponseEntity
+                    .ok()
+                    .body(obj);
     }
 
     @GetMapping
@@ -33,7 +35,10 @@ public class CategoriaResouce {
         // trasformando uma lista de categoria em uma lista de categoriaDTO
         // lanbida
         List<CategoriaDTO> listaDTO =
-                list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+                list
+                        .stream()
+                        .map(obj -> new CategoriaDTO(obj))
+                        .collect(Collectors.toList());
         return  ResponseEntity.ok(listaDTO);
    }
 
@@ -47,5 +52,13 @@ public class CategoriaResouce {
                .toUri();
        // pode ser a sim ResponseEntity.created(uri).body(obj);
        return ResponseEntity.created(uri).build();
+   }
+
+   @PutMapping(value = "/{id}")
+   public ResponseEntity<CategoriaDTO> update(@PathVariable Integer id, @RequestBody CategoriaDTO objDto) {
+        Categoria newObj = this.categoriaService.update(id, objDto);
+        return ResponseEntity
+                .ok()
+                .body(new CategoriaDTO(newObj));
    }
 }
