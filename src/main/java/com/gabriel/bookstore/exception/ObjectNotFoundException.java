@@ -1,6 +1,8 @@
 package com.gabriel.bookstore.exception;
 
-public class ObjectNotFoundException extends RuntimeException {
+import java.io.Serializable;
+
+public class ObjectNotFoundException extends RuntimeException implements Serializable {
 
     // recebe a mensagem de error
     public ObjectNotFoundException(String message) {

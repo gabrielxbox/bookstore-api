@@ -6,6 +6,7 @@ import com.gabriel.bookstore.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 // clase de serviço
@@ -23,5 +24,9 @@ public class CategoriaService {
                 new ObjectNotFoundException("Objeto não encontrado! id: " + id + ", Tipo: "
                         + Categoria.class.getName()));
 
+    }
+
+    public List<Categoria> findAll(){
+       return this.categoriaRepository.findAll();
     }
 }

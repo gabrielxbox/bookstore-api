@@ -2,13 +2,18 @@ package com.gabriel.bookstore.resouce;
 
 
 import com.gabriel.bookstore.domaim.Categoria;
+import com.gabriel.bookstore.dtos.CategoriaDTO;
 import com.gabriel.bookstore.services.CategoriaService;
+import org.hibernate.engine.internal.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -21,5 +26,16 @@ public class CategoriaResouce {
     public ResponseEntity<Categoria> findById(@PathVariable Integer id){
             Categoria  obj = this.categoriaService.findByid(id);
             return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoriaDTO>> findAll () {
+        List<Categoria> list  = this.categoriaService.findAll();
+        // trasformando uma lista de categoria em uma lista de categoriaDTO
+        // lanbida
+        List<CategoriaDTO> listaDTO =
+                list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+        return  ResponseEntity.ok(listaDTO);
+        
     }
 }
