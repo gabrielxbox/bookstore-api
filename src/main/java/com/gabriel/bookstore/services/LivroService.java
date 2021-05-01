@@ -1,5 +1,6 @@
 package com.gabriel.bookstore.services;
 
+import com.gabriel.bookstore.domaim.Categoria;
 import com.gabriel.bookstore.domaim.Livro;
 import com.gabriel.bookstore.exception.ObjectNotFoundException;
 import com.gabriel.bookstore.repository.LivroRepository;
@@ -45,5 +46,12 @@ public class LivroService  {
         newObj.setTitulo(obj.getTitulo());
         newObj.setNome_autor(obj.getTexto());
         newObj.setTexto(obj.getTexto());
+    }
+
+    public Livro create(Integer id_categoria, Livro obj) {
+        obj.setId(null);
+        Categoria cat = this.categoriaService.findByid(id_categoria);
+        obj.setCategoria(cat);
+      return this.livroRepository.save(obj);
     }
 }
