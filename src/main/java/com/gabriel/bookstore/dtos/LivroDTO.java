@@ -1,7 +1,10 @@
 package com.gabriel.bookstore.dtos;
 
 import com.gabriel.bookstore.domaim.Livro;
+import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.Column;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -10,9 +13,13 @@ public class LivroDTO implements Serializable {
 
     private Integer id;
 
+    @NotEmpty(message = "Campo titulo é requerido") // a coluna nome nao pode ficar vazio
+    @Length(min = 3, max = 50, message = "o campo titulo deve ter de 3 a 50 caracteres")
     private String titulo;
 
+
     public LivroDTO() {
+
     }
 
     public LivroDTO(Livro obj) {

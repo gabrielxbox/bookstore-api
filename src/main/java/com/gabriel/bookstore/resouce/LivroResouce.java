@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin("*") //que dizer que ele possa acessar de qualquer lugar para não ser barrado quando utilizar o angular
 @RestController
 @RequestMapping(value = "/livros")
 public class LivroResouce {
@@ -35,13 +37,20 @@ public class LivroResouce {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Livro> update (@PathVariable Integer id, @RequestBody Livro obj) {
+    public ResponseEntity<Livro> update (@Valid
+                                         @PathVariable Integer id,
+                                         @Valid
+                                         @RequestBody Livro obj) {
         Livro newObj = this.livroService.update(id, obj);
         return ResponseEntity.ok().body(newObj);
     }
 
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Livro> updatePatch (@PathVariable Integer id, @RequestBody Livro obj) {
+    public ResponseEntity<Livro> updatePatch (
+                                @Valid
+                                @PathVariable Integer id,
+                                @Valid
+                                @RequestBody Livro obj) {
         Livro newObj = this.livroService.update(id, obj);
         return ResponseEntity.ok().body(newObj);
     }
@@ -49,6 +58,7 @@ public class LivroResouce {
     @PostMapping
     public ResponseEntity<Livro> create (
                                 @RequestParam(value = "categoria", defaultValue = "0") Integer id_categoria,
+                                @Valid
                                 @RequestBody Livro obj) {
              Livro newObj =  this.livroService.create(id_categoria, obj);
         URI uri = ServletUriComponentsBuilder

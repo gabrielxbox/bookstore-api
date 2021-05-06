@@ -1,14 +1,24 @@
 package com.gabriel.bookstore.dtos;
 
 import com.gabriel.bookstore.domaim.Categoria;
+import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.Column;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class CategoriaDTO implements Serializable {
 
     private Integer id;
+    @NotEmpty(message = "Campo nome é requerido") // a coluna nome nao pode ficar vazio
+    @Length(min = 3, max = 100, message = "o campo nome deve ter de 3 a 100 caracteres")
+    @Column(name = "nome")
     private String nome;
+
+    @NotEmpty(message = "Campo descrição é requerido") // a coluna nome nao pode ficar vazio
+    @Length(min = 3, max = 200, message = "o campo nome deve ter de 3 a 100 descrição")
+    @Column(name = "descricao")
     private String descricao;
 
     public CategoriaDTO() {

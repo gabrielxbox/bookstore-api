@@ -1,13 +1,22 @@
 package com.gabriel.bookstore.domaim;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 
 @Entity
 @Table(name = "livro")
+
+@Getter
+@Setter
+@EqualsAndHashCode()
 public class Livro {
 
     @Id
@@ -15,12 +24,18 @@ public class Livro {
     @Column(name = "id")
     private Integer id;
 
+    @NotEmpty(message = "Campo titulo é requerido") // a coluna nome nao pode ficar vazio
+    @Length(min = 3, max = 50, message = "o campo titulo deve ter de 3 a 50 caracteres")
     @Column(name = "titulo")
     private String titulo;
 
+    @NotEmpty(message = "Campo nome do autor é requerido") // a coluna nome nao pode ficar vazio
+    @Length(min = 3, max = 50, message = "o campo nome do autor deve ter de 3 a 50 caracteres")
     @Column(name = "nome_autor")
     private String nome_autor;
 
+    @NotEmpty(message = "Campo texto é requerido") // a coluna nome nao pode ficar vazio
+    @Length(min = 10, max = 200000, message = "o campo texto deve ter de 3 a 2.000.00 caracteres")
     @Column(name = "texto")
     private String texto;
 
@@ -41,56 +56,4 @@ public class Livro {
         this.categoria = categoria;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getNome_autor() {
-        return nome_autor;
-    }
-
-    public void setNome_autor(String nome_autor) {
-        this.nome_autor = nome_autor;
-    }
-
-    public String getTexto() {
-        return texto;
-    }
-
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Livro livro = (Livro) o;
-        return id.equals(livro.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

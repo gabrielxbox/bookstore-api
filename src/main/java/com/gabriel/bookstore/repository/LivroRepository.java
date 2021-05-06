@@ -12,6 +12,6 @@ import java.util.List;
 public interface LivroRepository extends JpaRepository<Livro, Integer> {
 
     // é uma boa pratica tilizar @Param(value = "id_categoria")
-    @Query("SELECT obj FROM livro  WHERE categoria.id = :id_categoria  ORDER BY titulo")
+    @Query(value = "SELECT livro FROM livro  WHERE categoria.id = :id_categoria  ORDER BY titulo", nativeQuery = true)
     List<Livro> findAllByCategoria(@Param(value = "id_categoria") Integer id_categoria);
 }

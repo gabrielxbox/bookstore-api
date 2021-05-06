@@ -1,9 +1,14 @@
 package com.gabriel.bookstore.domaim;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +16,24 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "categoria")
+
+@Getter
+@Setter
+@EqualsAndHashCode()
+
 public class Categoria implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
+    @NotEmpty(message = "Campo nome é requerido") // a coluna nome nao pode ficar vazio
+    @Length(min = 3, max = 100, message = "o campo nome deve ter de 3 a 100 caracteres")
     @Column(name = "nome")
     private String nome;
 
+    @NotEmpty(message = "Campo descrição é requerido") // a coluna nome nao pode ficar vazio
+    @Length(min = 3, max = 200, message = "o campo nome deve ter de 3 a 100 descrição")
     @Column(name = "descricao")
     private String descricao;
 
@@ -38,48 +52,5 @@ public class Categoria implements Serializable {
         this.descricao = descricao;
   }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public List<Livro> getListaLivros() {
-        return listaLivros;
-    }
-
-    public void setListaLivros(List<Livro> listaLivros) {
-        this.listaLivros = listaLivros;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Categoria categoria = (Categoria) o;
-        return id.equals(categoria.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }
